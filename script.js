@@ -11,6 +11,7 @@ function addNewItem(e)
 
   const textValue = document.createTextNode(itemInput.value);
   const newItem = document.createElement('li');
+  newItem.className = 'unchecked'
   let storage;
   
   if (localStorage.getItem('item') === null)
@@ -28,6 +29,7 @@ function addNewItem(e)
     button.appendChild(icon);
     newItem.appendChild(button);
   
+    itemInput.value = '';
     itemList.appendChild(newItem);
   } else
   {
@@ -46,6 +48,7 @@ function addNewItem(e)
       button.appendChild(icon);
       newItem.appendChild(button);
     
+      itemInput.value = '';
       itemList.appendChild(newItem);
     } else
     {
@@ -118,13 +121,12 @@ function checkItem(e)
 {
   if (e.target.tagName == 'LI')
   {
-    if (e.target.style.textDecoration == 'none')
+    if (e.target.className == 'unchecked')
     {
-      console.log(e.target.textContent);
-      e.target.style.textDecoration = 'line-through red';
-    } else
+      e.target.className = 'checked';
+    } else if (e.target.className == 'checked')
     {
-      e.target.style.textDecoration = 'none';
+      e.target.className = 'unchecked';
     }
   } 
 
@@ -138,6 +140,7 @@ function checkStorage()
     storage.forEach(item => {
       const textValue = document.createTextNode(item);
       const newItem = document.createElement('li');
+      newItem.className = 'unchecked'
       newItem.appendChild(textValue);
     
       const button = document.createElement('button');

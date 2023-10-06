@@ -121,6 +121,19 @@ header h1 {
   padding: 10px 15px;
   margin: 0 5px 20px;
   font-weight: 700;
+  text-decoration: none;
+}
+
+.items li.unchecked{
+  text-decoration: none;
+  color: #333;
+  background: none;
+}
+
+.items li.checked{
+  text-decoration: line-through red;
+  color: #666;
+  background: #ddd;
 }
 
 @media (max-width: 500px) {
