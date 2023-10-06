@@ -11,36 +11,22 @@ function addNewItem(e)
 
   const textValue = document.createTextNode(itemInput.value);
   const newItem = document.createElement('li');
-  newItem.className = 'unchecked'
+  newItem.className = 'unchecked';
   let storage;
-  
-  if (localStorage.getItem('item') === null)
+
+  if (textValue.textContent == '')
   {
-    storage = [];
-    storage.push(textValue.textContent);
-    localStorage.setItem('item', JSON.stringify(storage));
-
-    newItem.appendChild(textValue);
-
-    const button = document.createElement('button');
-    button.className = 'remove-item btn-link text-red';
-    const icon = document.createElement('i');
-    icon.className = "fa-solid fa-xmark";
-    button.appendChild(icon);
-    newItem.appendChild(button);
-  
-    itemInput.value = '';
-    itemList.appendChild(newItem);
+    alert('Input is empty');
   } else
   {
-    storage = JSON.parse(localStorage.getItem('item'));
-    if (storage.indexOf(textValue.textContent)  === -1)
+    if (localStorage.getItem('item') === null)
     {
+      storage = [];
       storage.push(textValue.textContent);
       localStorage.setItem('item', JSON.stringify(storage));
-
+  
       newItem.appendChild(textValue);
-
+  
       const button = document.createElement('button');
       button.className = 'remove-item btn-link text-red';
       const icon = document.createElement('i');
@@ -52,9 +38,28 @@ function addNewItem(e)
       itemList.appendChild(newItem);
     } else
     {
-      alert('Duplicate Item')
+      storage = JSON.parse(localStorage.getItem('item'));
+      if (storage.indexOf(textValue.textContent)  === -1)
+      {
+        storage.push(textValue.textContent);
+        localStorage.setItem('item', JSON.stringify(storage));
+  
+        newItem.appendChild(textValue);
+  
+        const button = document.createElement('button');
+        button.className = 'remove-item btn-link text-red';
+        const icon = document.createElement('i');
+        icon.className = "fa-solid fa-xmark";
+        button.appendChild(icon);
+        newItem.appendChild(button);
+      
+        itemInput.value = '';
+        itemList.appendChild(newItem);
+      } else
+      {
+        alert('Duplicate Item')
+      }
     }
-
   }
 
   checkUI();
